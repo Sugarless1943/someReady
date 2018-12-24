@@ -16,20 +16,21 @@
             type="index"
             label="序号"
             width="55">
+            <template slot-scope="scope">
+              <div class="arrows">
+                <i v-if="scope.row.children && !scope.row.pId"
+                   :class="[scope.row.trClass]"
+                   @click="showChild(scope.row)"
+                   style="cursor: pointer;color: #409EFF"></i>
+              </div>
+              {{scope.row.index}}
+            </template>
           </el-table-column>
           <el-table-column
             prop="userName"
             label="用户名/组名"
             align="left"
             width="200">
-            <template slot-scope="scope">
-              <div v-if="scope.row.children && !scope.row.pId">
-                <i :class="[scope.row.trClass]" @click="showChild(scope.row)" style="cursor: pointer;color: #409EFF"></i>
-                {{scope.row.userName}}
-                <!--<i class='el-icon-menu'></i>-->
-              </div>
-              <div v-else style="padding-left: 17px">{{scope.row.userName}}</div>
-            </template>
           </el-table-column>
           <el-table-column
             prop="name"
@@ -49,7 +50,7 @@
   export default {
     data() {
       return {
-        peopleData: [         //后台请求的数据
+        tableData: [         //后台请求的数据
           {
             userName: 'nkjgk1',
             name: '王晓晓',
@@ -108,16 +109,18 @@
             id: '4'
           },
         ],
+        dataFormat: []
       }
     },
 
     computed: {
       treeData(){     //将来源数据抹平，隐藏子行
         let arr = [];
-        this.peopleData.forEach(function (item, index) {
+        this.tableData.forEach(function (item, index) {
           arr.push(Object.assign({},item,{
             trShow: true,
-            trClass: 'el-icon-caret-right'
+            trClass: 'el-icon-caret-right',
+            index: index + 1
           }));
           let pId = item.id;
           if (item.children && item.children.length > 0) {
@@ -130,6 +133,8 @@
             })
           }
         });
+
+        this.dataFormat = arr
         return arr;
       }
     },
@@ -171,14 +176,19 @@
       },
 
       tableIndex(index) {
-        return (index + 1) + ((this.currentPage - 1) * this.pageSize)
+        return this.dataFormat[index].index
       }
     },
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .marLeft {
     margin-left: 10px;
+  }
+
+  .arrows {
+    display: inline-block;
+    width: 15px;
   }
 </style>
