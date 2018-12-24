@@ -5,9 +5,16 @@ import App from './App'
 import router from './router'
 import elementUi from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import commonFiltes from './filters'
 
 Vue.config.productionTip = false
 Vue.use(elementUi)
+
+// 注册全局过滤器
+Object.keys(commonFiltes).forEach(key => {
+  Vue.filter(key, commonFiltes[key])
+})
+
 
 /* eslint-disable no-new */
 new Vue({

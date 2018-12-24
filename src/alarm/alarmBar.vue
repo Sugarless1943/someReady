@@ -2,7 +2,7 @@
     <div class="alarmBar">
       <div v-for="item in defaultConfig" v-show="item.show" :style="{ width: item.width,background: item.color }">
         {{item.width}}
-        <span>{{item.name}}</span>
+        <span>{{item.name}} {{item.num}}</span>
       </div>
     </div>
 </template>
@@ -77,7 +77,7 @@
       padding-left: 10px;
       color: #FFF;
       position: relative;
-      min-width: 70px;
+      min-width: 80px;
 
       span {
         position: absolute;
