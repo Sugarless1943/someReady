@@ -17,13 +17,13 @@
             label="序号"
             width="55">
             <template slot-scope="scope">
+              {{scope.row.index}}
               <div class="arrows">
                 <i v-if="scope.row.children && !scope.row.pId"
                    :class="[scope.row.trClass]"
                    @click="showChild(scope.row)"
                    style="cursor: pointer;color: #409EFF"></i>
               </div>
-              {{scope.row.index}}
             </template>
           </el-table-column>
           <el-table-column
@@ -119,7 +119,7 @@
         this.tableData.forEach(function (item, index) {
           arr.push(Object.assign({},item,{
             trShow: true,
-            trClass: 'el-icon-caret-right',
+            trClass: 'el-icon-arrow-right',
             index: index + 1
           }));
           let pId = item.id;
@@ -150,20 +150,20 @@
       },
 
       showChild(row) {     //展开子行的方法
-        if (row.trClass == 'el-icon-caret-right') {
+        if (row.trClass == 'el-icon-arrow-right') {
           this.treeData.forEach(function (item, index) {
             if (item.pId == row.id) {
               item.trShow = true;
             }
           });
-          row.trClass = 'el-icon-caret-bottom';
+          row.trClass = 'el-icon-arrow-down';
         } else {
           this.treeData.forEach(function (item, index) {
             if (item.pId == row.id) {
               item.trShow = false;
             }
           });
-          row.trClass = 'el-icon-caret-right';
+          row.trClass = 'el-icon-arrow-right';
         }
       },
 
@@ -189,6 +189,6 @@
 
   .arrows {
     display: inline-block;
-    width: 15px;
+    width: 10px;
   }
 </style>
