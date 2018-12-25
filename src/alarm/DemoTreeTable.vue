@@ -171,11 +171,7 @@
       },
 
       selectable(row){  //禁用checked
-        if(row.pId){
-          return false;
-        }else{
-          return true
-        }
+        return row.pId ? false : true
       },
 
       objectSpanMethod({ row, column, rowIndex, columnIndex }) {
@@ -193,10 +189,6 @@
           }
         }
       },
-    },
-
-    mounted() {
-
     }
   }
 </script>
@@ -214,6 +206,10 @@
 
     .is-disabled {
       display: none;
+    }
+
+    .el-table__body tr.hover-row>td {
+      background: #fff;
     }
   }
 
