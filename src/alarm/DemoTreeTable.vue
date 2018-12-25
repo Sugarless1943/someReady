@@ -144,12 +144,9 @@
     },
 
     methods: {
-      showTr(row, index) {    //是否显示行
-        if(row.row.trShow){
-          return ''
-        }else{
-          return 'display: none'
-        }
+      showTr({row, index}) {    //是否显示行
+        if(!row.trShow) return 'display: none'
+        if(row.pId) return 'background: #F7F8F9'
       },
 
       showChild(row) {     //展开子行的方法
@@ -209,10 +206,7 @@
     }
 
     .el-table__body tr.hover-row>td {
-      background: #fff;
+      background: inherit;
     }
   }
-
-
-
 </style>
