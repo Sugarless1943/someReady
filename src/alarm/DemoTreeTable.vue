@@ -208,5 +208,15 @@
     .el-table__body tr.hover-row>td {
       background: inherit;
     }
+
+    thead {
+      tr {
+        color: rgba(0, 0, 0, 0.85);
+        font-weight: bold;
+        th {
+          background: #F0F2F5 !important;
+        }
+      }
+    }
   }
 </style>
