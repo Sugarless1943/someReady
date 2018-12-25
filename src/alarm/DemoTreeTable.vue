@@ -1,9 +1,10 @@
 <template>
-    <div class="as-main">
+  <!-- -̡̙̙͇̺̤͓̀͜-̧̛̗̕-͏̪̥̩-->
+
+  <div class="as-main">
       <el-table
           :data="treeData"
           border
-          :cell-style="cellStyle"
           :row-style="showTr"
           :span-method="objectSpanMethod"
           class="treeTable">
@@ -143,7 +144,6 @@
     },
 
     methods: {
-
       showTr(row, index) {    //是否显示行
         if(row.row.trShow){
           return ''
@@ -170,14 +170,6 @@
         }
       },
 
-      cellStyle({row, column, rowIndex, columnIndex}) {
-        if(columnIndex == 0) {
-          if(row.rowSpans && row.rowSpans[0]){
-            // return {display: 'none'}
-          }
-        }
-      },
-
       selectable(row){  //禁用checked
         if(row.pId){
           return false;
@@ -201,11 +193,11 @@
           }
         }
       },
-
-      tableIndex(index) {
-        return this.dataFormat[index].index
-      }
     },
+
+    mounted() {
+
+    }
   }
 </script>
 
@@ -224,4 +216,7 @@
       display: none;
     }
   }
+
+
+
 </style>
