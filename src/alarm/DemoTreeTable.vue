@@ -3,8 +3,10 @@
       <el-table
           :data="treeData"
           border
+          :cell-style="cellStyle"
           :row-style="showTr"
-          style="width: 100%;margin-bottom: 20px">
+          :span-method="objectSpanMethod"
+          class="treeTable">
           <el-table-column
             type="selection"
             fixed
@@ -125,10 +127,11 @@
           let pId = item.id;
           if (item.children && item.children.length > 0) {
             let chi = item.children;
-            chi.forEach(function (item, index) {
+            chi.forEach((item, index) => {
               arr.push(Object.assign({},item,{
                 pId: pId,
-                trShow: false
+                trShow: false,
+                rowSpans: index === 0 ? [chi.length, 2] : [0 , 1]
               }))
             })
           }
@@ -167,11 +170,35 @@
         }
       },
 
+      cellStyle({row, column, rowIndex, columnIndex}) {
+        if(columnIndex == 0) {
+          if(row.rowSpans && row.rowSpans[0]){
+            // return {display: 'none'}
+          }
+        }
+      },
+
       selectable(row){  //禁用checked
         if(row.pId){
           return false;
         }else{
           return true
+        }
+      },
+
+      objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+        if(row.rowSpans) {
+          if(columnIndex === 0){
+            return row.rowSpans
+          }
+
+          if(columnIndex === 1){
+            if(row.rowSpans[0]){
+              return [0,1]
+            }else {
+              return [0,0]
+            }
+          }
         }
       },
 
@@ -182,13 +209,19 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .marLeft {
-    margin-left: 10px;
-  }
+<style lang="scss">
+  .treeTable {
+    .marLeft {
+      margin-left: 10px;
+    }
 
-  .arrows {
-    display: inline-block;
-    width: 10px;
+    .arrows {
+      display: inline-block;
+      width: 10px;
+    }
+
+    .is-disabled {
+      display: none;
+    }
   }
 </style>
