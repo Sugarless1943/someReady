@@ -19,30 +19,26 @@
       components: { Alerts },
       data() {
         return {
-          alerts: []
+          alerts: [],
+          index: 3000
         }
       },
       methods: {
           addAlert() {
             const id = new Date().getTime()
-            this.alerts.unshift({
+            this.alerts.push({
               id: id,
-              content: id
-            })
-            this.$nextTick().then(() => {
-              // console.log(this.$refs['alert_' + id])
-              this.$refs['alert_' + id][0].init()
+              content: id,
+              index: ++this.index
             })
           },
 
-        close(id) {
-
-        },
-
-        huadong() {
-            console.log(this.alerts[0])
-            // this.alerts[0].alertShow = true
-          this.$set(this.alerts[0], 'alertShow', true)
+        close() {
+          if(this.alerts.length - 1 == 0){
+            this.alerts = []
+          }else {
+            this.alerts = [...this.alerts].splice(this.alerts.length - 1, 1)
+          }
         },
 
         test() {
