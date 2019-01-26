@@ -17,7 +17,7 @@ Object.keys(commonFiltes).forEach(key => {
 
 
 /* eslint-disable no-new */
-new Vue({
+let vm = new Vue({
   el: '#app',
   router,
   components: { App },
